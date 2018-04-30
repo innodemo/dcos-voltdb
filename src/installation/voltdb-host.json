@@ -17,65 +17,6 @@
     ]
   ],
   "container": {
-    "portMappings": [
-      {
-        "containerPort": 21212,
-        "hostPort": 21212,
-        "labels": {
-          "VIP_0": "/voltdb:21212"
-        },
-        "protocol": "tcp",
-        "servicePort": 10000,
-        "name": "client-port"
-      },
-      {
-        "containerPort": 21211,
-        "hostPort": 21211,
-        "labels": {
-          "VIP_1": "/voltdb:21211"
-        },
-        "protocol": "tcp",
-        "servicePort": 10001,
-        "name": "admin-port"
-      },
-      {
-        "containerPort": 8080,
-        "hostPort": 8080,
-        "labels": {
-          "VIP_2": "/voltdb:8080"
-        },
-        "protocol": "tcp",
-        "servicePort": 10002,
-        "name": "web-interface"
-      },
-      {
-        "containerPort": 3021,
-        "hostPort": 3021,
-        "labels": {
-          "VIP_3": "/voltdb:3021"
-        },
-        "protocol": "tcp",
-        "servicePort": 10003,
-        "name": "internal-server-port"
-      },
-      {
-        "containerPort": 5555,
-        "hostPort": 5555,
-        "labels": {
-          "VIP_4": "/voltdb:5555"
-        },
-        "protocol": "tcp",
-        "servicePort": 10004,
-        "name": "replication-port"
-      },
-      {
-        "containerPort": 7181,
-        "hostPort": 7181,
-        "protocol": "tcp",
-        "servicePort": 10005,
-        "name": "zookeeper-port"
-      }
-    ],
     "type": "DOCKER",
     "volumes": [
       {
@@ -97,16 +38,16 @@
     "HOSTS": "server5",
     "HOST_COUNT": "3"
   },
-  "instances": 3,
+  "instances": 0,
   "maxLaunchDelaySeconds": 3600,
   "mem": 2000,
   "gpus": 0,
   "networks": [
     {
-      "mode": "container/bridge"
+      "mode": "host"
     }
   ],
-  "requirePorts": false,
+  "requirePorts": true,
   "upgradeStrategy": {
     "maximumOverCapacity": 1,
     "minimumHealthCapacity": 1
@@ -117,5 +58,55 @@
     "expungeAfterSeconds": 0
   },
   "healthChecks": [],
-  "fetch": []
+  "fetch": [],
+  "portDefinitions": [
+    {
+      "labels": {
+        "VIP_0": "/voltdb:21212"
+      },
+      "name": "client-port",
+      "protocol": "tcp",
+      "port": 21212
+    },
+    {
+      "labels": {
+        "VIP_1": "/voltdb:21211"
+      },
+      "name": "admin-port",
+      "protocol": "tcp",
+      "port": 21211
+    },
+    {
+      "labels": {
+        "VIP_2": "/voltdb:8080"
+      },
+      "name": "web-interface",
+      "protocol": "tcp",
+      "port": 8000
+    },
+    {
+      "labels": {
+        "VIP_3": "/voltdb:3021"
+      },
+      "name": "internal-server-port",
+      "protocol": "tcp",
+      "port": 3021
+    },
+    {
+      "labels": {
+        "VIP_4": "/voltdb:5555"
+      },
+      "name": "replication-port",
+      "protocol": "tcp",
+      "port": 5555
+    },
+    {
+      "labels": {
+        "VIP_5": "/voltdb4:7181"
+      },
+      "name": "zookeeper-port",
+      "protocol": "tcp",
+      "port": 7181
+    }
+  ]
 }
