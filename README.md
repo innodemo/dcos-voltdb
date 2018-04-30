@@ -12,5 +12,9 @@ The general requirements for this process include:
 * Access to the open source VoltDB docker image via the same servers as which constitute the DC/OS cluster.
 
 ## Installation Steps
-1. type 'dcos marathon app add '
-## Validating the Installation
+1. Define the node attribute 'voltdb' and give it the value 'true' for the 3 nodes you wish to deploy VoltDB.  You can have more than 3 nodes, but if you do then you will need to update the 'voltdb-bridge.json' to have the number of nodes desired.
+2. Add the voltdb container to Marathon by executing the following commands:
+```
+cd src/installation
+dcos marathon app add voltdb-bridge.json
+```
