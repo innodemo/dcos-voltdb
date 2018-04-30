@@ -1,0 +1,144 @@
+{
+  "labels": {
+    "HAPROXY_GROUP": "external"
+  },
+  "id": "/voltdb",
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "constraints": [
+    [
+      "voltdb",
+      "IS",
+      "true"
+    ],
+    [
+      "hostname",
+      "UNIQUE"
+    ]
+  ],
+  "container": {
+    "portMappings": [
+      {
+        "containerPort": 21212,
+        "hostPort": 0,
+        "labels": {
+          "VIP_0": "/voltdb:21212"
+        },
+        "protocol": "tcp",
+        "servicePort": 10000,
+        "name": "client-port"
+      },
+      {
+        "containerPort": 21211,
+        "hostPort": 0,
+        "labels": {
+          "VIP_1": "/voltdb:21211"
+        },
+        "protocol": "tcp",
+        "servicePort": 10001,
+        "name": "admin-port"
+      },
+      {
+        "containerPort": 8080,
+        "hostPort": 0,
+        "labels": {
+          "VIP_2": "/voltdb:8080"
+        },
+        "protocol": "tcp",
+        "servicePort": 10101,
+        "name": "web-interface"
+      },
+      {
+        "containerPort": 3021,
+        "hostPort": 0,
+        "labels": {
+          "VIP_3": "/voltdb:3021"
+        },
+        "protocol": "tcp",
+        "servicePort": 10102,
+        "name": "internal-server-port"
+      },
+      {
+        "containerPort": 5555,
+        "hostPort": 0,
+        "labels": {
+          "VIP_4": "/voltdb:5555"
+        },
+        "protocol": "tcp",
+        "servicePort": 10103,
+        "name": "replication-port"
+      },
+      {
+        "containerPort": 7181,
+        "hostPort": 0,
+        "labels": {
+          "VIP_5": "/voltdb:7181"
+        },
+        "protocol": "tcp",
+        "servicePort": 10104,
+        "name": "zookeeper-port"
+      },
+      {
+        "containerPort": 22,
+        "hostPort": 0,
+        "labels": {
+          "VIP_6": "/voltdb:22"
+        },
+        "protocol": "tcp",
+        "servicePort": 10105,
+        "name": "ssh"
+      },
+      {
+        "containerPort": 8000,
+        "hostPort": 0,
+        "labels": {
+          "VIP_7": "/voltdb:8000"
+        },
+        "protocol": "tcp",
+        "servicePort": 10106,
+        "name": "webgui"
+      }
+    ],
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/data/customeDeployment.xml",
+        "hostPath": "/tmp",
+        "mode": "RW"
+      }
+    ],
+    "docker": {
+      "image": "voltdb/voltdb-community",
+      "forcePullImage": true,
+      "privileged": false,
+      "parameters": []
+    }
+  },
+  "cpus": 2,
+  "disk": 0,
+  "env": {
+    "HOSTS": "server5",
+    "HOST_COUNT": "3"
+  },
+  "instances": 3,
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 2000,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 1
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "healthChecks": [],
+  "fetch": []
+}
