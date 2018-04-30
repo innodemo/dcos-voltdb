@@ -16,5 +16,5 @@ The general requirements for this process include:
 2. Add the voltdb container to Marathon by executing the following commands:
 ```
 cd src/installation
-dcos marathon app add voltdb-bridge.json
+dcos marathon app add voltdb-host.json
 ```
